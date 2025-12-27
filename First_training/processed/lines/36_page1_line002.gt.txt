@@ -1,0 +1,1 @@
+104 P(i, j) = A(i, j) NA Di [S(i, j)]
