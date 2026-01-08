@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage[pdftex]{graphicx}
+\usepackage[svgnames]{xcolor}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[many]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{appendix}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{authblk}
+
+\usepackage{biblatex} %Imports biblatex package
+\addbibresource{riferimenti.bib} %Import the bibliography file
+
+\title{\color{FireBrick}\bf{Titolo progetto}}
+\author[1]{\color{FireBrick}\bf{Studente autore 1}}
+\author[2]{\color{FireBrick}\bf{Studente autore 2}}
+
+\affil[1]{nome1.cognome1@campus.uniurb.it}
+\affil[2]{nome2.cognome2@campus.uniurb.it}
+
+\date{}
+
+\begin{document}
+\fancypagestyle{firstpage}
+{
+    \fancyhead[L]{\footnotesize{\bf{Universit\`a degli Studi di Urbino Carlo Bo}}}
+	\fancyhead[R]{\footnotesize{\bf{CdL Magistrale Informatica e Innovazione Digitale}}}
+}
+\thispagestyle{firstpage}
+
+\pagestyle{fancy}
+
+\fancyhead{} % clear all header fields
+\fancyhead[L]{\color{Black}{\footnotesize{\thetitle}}}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[R]{\footnotesize{\bf{\thepage}}}
+\fancyfoot[L]{\footnotesize{\bf{Progetto corso Machine Learning}}}
+
+
+
+\twocolumn
+%------------------------------------------                                       
+%                      Title
+%------------------------------------------
+[{
+\maketitle
+\thispagestyle{firstpage}
+\title{\color{Black}\bf{Titolo progetto}}
+%------------------------------------------                                                           
+%                   Abstract
+%------------------------------------------
+\normalsize
+\begin{tcolorbox}[  colback = WhiteSmoke,
+                    ,
+                    width=\linewidth,
+                    arc=1mm, auto outer arc,
+                ]
+\section*{Riassunto}
+In questa sezione va riportata una sintesi del lavoro svolto, descrivendo brevemente motivazione, metodologie adottate (ad alto livello, senza scendere nei dettagli) e risultati ottenuti.
+\end{tcolorbox}
+\vspace{1.5ex}
+}]
+
+
+%------------------------------------------
+%                   Main Matter
+%------------------------------------------
+
+\section{Introduzione}
+In questa sezione dovete introdurre il problema e spiegare perch\'e \`e importante; inoltre vanno chiaramente specificati input e output e introdotto l'utilizzo del modello utilizzato per la predizione. 
+Qui \`e anche il caso di inserire una parte dedicata al background e ai lavori correlati al progetto tramite citazioni ad opportuni riferimenti bibliografici di libri, articoli scientifici e/o (eventualmente, in seconda battuta, anche siti web autorevoli) \cite{dirac}, \cite{einstein}, \cite{uniurbwebsite}.
+L'utilizzo di un motore di ricerca accademica come Google Scholar (https://scholar.google.com) \`e particolarmente utile per questo scopo (vi permette anche di estrarre le citazioni in formato BibTeX).
+Raggruppare lo stato dell'arte secondo macro-categorie permette di evidenziare quali soluzioni (algoritmi di apprendimento, modelli, librerie software) sono state proposte per un dato problema.   
+
+Le citazioni riguardano i riferimenti bibliografici della sezione apposita e includono: {\it i)} articoli scientifici e/o libri utilizzati come riferimento; {\it ii)} articoli scientifici e/o libri che descrivono eventuali algoritmi e modelli utilizzati che non sono stati affrontati durante il corso; {\it iii)} codice o librerie software utilizzate (e.g. {\tt scikit-learn}, {\tt Tensorflow}).
+
+\section{Metodi}
+Qui vanno descritti i metodi utilizzati, ovvero modelli e algoritmi di apprendimento. Per ogni modello/algoritmo descrivete brevemente come funziona, utilizzando anche una notazione matematica coerente (ad esempio inserendo e descrivendo la funzione di costo di tipo cross-entropy di un classificatore regressione logistica, se questo viene usato). Cercate di evidenziare quello che avete assimilato e compreso di un certo metodo.
+
+Devono essere descritti il/i dataset utilizzato/i, in termini di dimensione e composizione. Quanti esempi sono stati utilizzati per il training? Quanti per l'eventuale validazione? Quanti per il test? 
+Si devono anche riportare eventuali pre-elaborazioni, come ad esempio la normalizzazione dei dati, oppure l'estrazione di feature particolari. \`E solitamente utile fornire una descrizione del singolo dato, magari tramite l'ausilio di una figura, come ad esempio il segnale riportato in Figura \ref{fig:signals}. 
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{signals.pdf}
+\caption{Esempio di segnale da un accelerometro triassiale.}
+\label{fig:signals}
+\end{figure}
+
+\section{Risultati sperimentali}
+In questa sezione devono essere riportati i risultati degli esperimenti condotti. Come prima cosa vanno definite e spiegate le metriche di valutazione adottate: accuratezza (per i problemi di classificazione), errore quadratico medio o errore assoluto medio (per i problemi di regressione), ecc.
+Se avete affrontato un problema di classificazione pu\`o essere utile introdurre e riportare le matrici di confusione.
+
+Altre metriche che non sono state introdotte nel corso (come ad esempio le curve ROC, Receiver Operating Curve) possono ovviamente essere prese in considerazione, purch\`e debitamente studiate e comprese.
+
+I risultati sono solitamente riassunti in forma di tabelle o grafici (o entrambi) che devono essere opportunamente discussi. Ricordarsi di riportare nei grafici legende e etichette degli assi. 
+Nel commentare i risultati \`e infine suggerito provare a evidenziare (tramite esempi di dove ha fallito) le limitazioni dell'algoritmo utilizzato o, viceversa, i punti di forza rispetto a potenziali alternative. 
+
+
+\section{Conclusioni}
+Riassumete in questa sezione i punti chiave del progetto, illustrando quali algoritmi hanno fornito le prestazioni migliori e, possibilmente, per quale motivo. 
+Infine, provate a concludere analizzando il lavoro in una prospettiva futura, provando cio\`e a proporre cosa fareste per espandere il lavoro oppure per proporne una sua evoluzione, qualora aveste a disposizione ulteriori risorse (pi\`u co-autori del progetto, maggiori risorse computazionali, pi\`u tempo).
+
+\section{Contributi}
+Nella sezione Contributi vanno inseriti i contributi dei vari componenti del gruppo di lavoro, ovvero chi ha ideato, sviluppato, implementato le specifiche parti del progetto. Ovviamente i contributi possono essere anche paritari, se ogni membro del gruppo ha contribuito in egual misura.
+
+\printbibliography
+
+\end{document}
