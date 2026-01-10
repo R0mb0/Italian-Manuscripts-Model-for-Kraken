@@ -18,6 +18,9 @@
 \usepackage{titling}
 \usepackage{authblk}
 
+\usepackage{minted} % Pacchetto per evidenziare la sintassi
+\usepackage{tcolorbox} % Per riquadri personalizzabili
+
 \usepackage{biblatex} %Imports biblatex package
 \addbibresource{riferimenti.bib} %Import the bibliography file
 
@@ -68,7 +71,7 @@
 \section*{Riassunto}
 %In questa sezione va riportata una sintesi del lavoro svolto, descrivendo brevemente motivazione, metodologie adottate (ad alto livello, senza scendere nei dettagli) e risultati ottenuti.
 
-Il lavoro svolto per l'esame è stato il "fine tuning" di un modello pre-esistente di Kraken per ottenerne uno che fosse in grado di leggere i manoscritti italiani, poiché nel luogo dove lavoro io (ovvero la pubblica amministrazione) vi è una forte necessità di strumenti "OCR" avanzati per la digitalizzazione dei documento storici che tra non molto secondo le nuove normative sulla privacy, dovranno essere distrutti. Per raggiungere tale scopo sono stati trascritti (pagina per pagina) e scansionati dei quaderni universitari e nel campione di addestramento sono anche state incluse delle pagine stampate da una sorgente di testo in digitale. Le pagine scansionate sono state poi raffinate con degli script standard in Python che si usano per l'addestramento di Kraken. IL risultato di questa operazione è stato l'ottenimento di un modello che soddisfa i requisiti minimi di operatività richiesti dal mio capo. 
+Il lavoro svolto per l'esame è stato il "fine tuning" di un modello pre-esistente di Kraken per ottenerne uno che fosse in grado di leggere i manoscritti italiani, poiché nel luogo dove lavoro io (ovvero la pubblica amministrazione) vi è una forte necessità di strumenti "OCR" avanzati per la digitalizzazione dei documento storici che tra non molto secondo le nuove normative sulla privacy, dovranno essere distrutti. Per raggiungere tale scopo sono stati trascritti (pagina per pagina) e scansionati dei quaderni universitari. Le pagine scansionate sono state poi raffinate con degli script standard in Python che si usano per l'addestramento di Kraken. IL risultato di questa operazione è stato l'ottenimento di un modello che soddisfa i requisiti minimi di operatività richiesti dal mio capo. 
 \end{tcolorbox}
 \vspace{1.5ex}
 }]
@@ -94,19 +97,216 @@ I primi software analizzati e successivamente scartati poiché inadatti sono sta
 \end{itemize}
 
 La motivazione per quale questo software sono stati giudicati come inadatti è che nessuno di questi ha un vero supporto per documenti che possiedono delle parti manoscritte, che nel caso di un istituti di ricerca possono essere le ricette fatte e le note sui pazienti.\newline
-In linea teorica gli "OCR" su base "AI" sono gli unici ad essere idonei per il carico di lavoro descritto, ma un istituto di ricerca ancor prima della sperimentazione non può procedere con questo strumenti, poiché tutti richiedono la trasmissione remota delle pagine da analizzare e a questo punto non è più garantita 
+In linea teorica gli "OCR" su base "AI" sono gli unici ad essere idonei per il carico di lavoro descritto, ma un istituto di ricerca ancor prima della sperimentazione non può procedere con questo strumenti, poiché tutti richiedono la trasmissione remota delle pagine da analizzare e a questo punto non è garantita la sicurezza delle informazioni. \newline
 
-Qui \`e anche il caso di inserire una parte dedicata al background e ai lavori correlati al progetto tramite citazioni ad opportuni riferimenti bibliografici di libri, articoli scientifici e/o (eventualmente, in seconda battuta, anche siti web autorevoli) \cite{dirac}, \cite{einstein}, \cite{uniurbwebsite}.
-L'utilizzo di un motore di ricerca accademica come Google Scholar (https://scholar.google.com) \`e particolarmente utile per questo scopo (vi permette anche di estrarre le citazioni in formato BibTeX).
-Raggruppare lo stato dell'arte secondo macro-categorie permette di evidenziare quali soluzioni (algoritmi di apprendimento, modelli, librerie software) sono state proposte per un dato problema.   
+Quindi quello che serve è una AI che si abbastanza efficiente per riuscire ad essere eseguita con soddisfazione in uno dei pc di comparto, L'unica strada plausibile era quella di creare un modello per Kraken, siccome tutte le altre AI opensource sono troppo poco mature per essere utilizzate e quello che invece funziona è tutto a pagamento. 
 
-Le citazioni riguardano i riferimenti bibliografici della sezione apposita e includono: {\it i)} articoli scientifici e/o libri utilizzati come riferimento; {\it ii)} articoli scientifici e/o libri che descrivono eventuali algoritmi e modelli utilizzati che non sono stati affrontati durante il corso; {\it iii)} codice o librerie software utilizzate (e.g. {\tt scikit-learn}, {\tt Tensorflow}).
+\subsection{Input e Output}
+
+I file in ingresso sono le scannerizzazioni dei documenti da digitalizzare, previa la pulizia fatta con ScanTailor, mentre si identificano file di output, i documenti txt contenenti le trascrizioni.\newline
+Al fine del lavoro specifico che mi è stato assegnato dal mio capo, il lavoro si può concludere con questo livello di documentazione, siccome il piano non è quello di ottenere un manoscritto o un documento misto quel quale il testo è selezionabile. Ma è quello di creare un pacchetto (in questo caso una cartella) dove si racchiude la scansione del testo e la trascrizione, questa cosa ai fini di archiviazione della documentazione, funge come sistema per l'indentificazione del documento, in quanto, la "query" di ricerca può essere eseguita leggendo il contenuto di tutte le trascrizioni, e quando invece si desidera visualizzare il documento finale, viene riproposta la scannerizzazione. 
+
+\subsection{Il modello}
+
+%Qui \`e anche il caso di inserire una parte dedicata al background e ai lavori correlati al progetto tramite citazioni ad opportuni riferimenti bibliografici di libri, articoli scientifici e/o (eventualmente, in seconda battuta, anche siti web autorevoli) \cite{dirac}, \cite{einstein}, \cite{uniurbwebsite}.
+%L'utilizzo di un motore di ricerca accademica come Google Scholar (https://scholar.google.com) \`e particolarmente utile per questo scopo (vi permette anche di estrarre le citazioni in formato BibTeX).
+%Raggruppare lo stato dell'arte secondo macro-categorie permette di evidenziare quali soluzioni (algoritmi di apprendimento, modelli, librerie software) sono state proposte per un dato problema.   
+
+%Le citazioni riguardano i riferimenti bibliografici della sezione apposita e includono: {\it i)} articoli scientifici e/o libri utilizzati come riferimento; {\it ii)} articoli scientifici e/o libri che descrivono eventuali algoritmi e modelli utilizzati che non sono stati affrontati durante il corso; {\it iii)} codice o librerie software utilizzate (e.g. {\tt scikit-learn}, {\tt Tensorflow}).
+
+Durante il processo di addestramento ho utilizzato questo modello base di cui ho fatto il fine-tuning: Tridis_Medieval_EarlyModern.mlmodel che secondo la documentazione di kraken è il modello che più avvicina al risultato che desidero ottenere. In pratica il modello di partenza è quello per leggere i manoscritti latini. Questo è risultato il modello più idoneo siccome a livello geometrico la scrittura tra i manoscritti italiano e i manoscritti latini più recenti, sono simili, per tanto si prospettava la buona uscita del lavoro.
 
 \section{Metodi}
-Qui vanno descritti i metodi utilizzati, ovvero modelli e algoritmi di apprendimento. Per ogni modello/algoritmo descrivete brevemente come funziona, utilizzando anche una notazione matematica coerente (ad esempio inserendo e descrivendo la funzione di costo di tipo cross-entropy di un classificatore regressione logistica, se questo viene usato). Cercate di evidenziare quello che avete assimilato e compreso di un certo metodo.
 
-Devono essere descritti il/i dataset utilizzato/i, in termini di dimensione e composizione. Quanti esempi sono stati utilizzati per il training? Quanti per l'eventuale validazione? Quanti per il test? 
-Si devono anche riportare eventuali pre-elaborazioni, come ad esempio la normalizzazione dei dati, oppure l'estrazione di feature particolari. \`E solitamente utile fornire una descrizione del singolo dato, magari tramite l'ausilio di una figura, come ad esempio il segnale riportato in Figura \ref{fig:signals}. 
+Il processo di addestramento ha seguito questa metodologia di lavoro, partendo dal presupposto che, kraken inizialmente come progetto opensource è stato poi acquisito dall'unione europea come una specie di AI interna, la motivazione è la stessa che ha spinto a me personalmente ad utilizzarla, ovvero la necessità di avere un "OCR" che giri in locale su una macchina di cui gli operatori possono avere il controllo per il processo di digitalizzazione dei documenti storici che fanno parte della storia del pubblico. Ma poi (detto brevemente) il processo è stato oscurato in quanto la stessa AI gestita dall'unione europea non soddisfa i requisiti della legge "2024/1689, nota come AI Act" emanata da loro stessi, la conseguenza è che il progetto è stato oscurato. Quello che rimane accessibile sono delle repository su GitHub non più mantenute e le repository del progetto del codice opensoruce dell'unione europea dove tutti i link google a kraken puntano generano errore 404.
+
+Utilizzando ChatGPT (fornitami gratuitamente dal progetto scalastico di github) inizio a mettere ordine in questa situazione. 
+
+Prima di tutto, avendo una scheda grafica Nvdia, utilizzo come sistema operativo PopOS siccome è uno dei pochi sistemi operativi che nel caso di schede video Nvdia mette subito a disposizione (out-of-the-box) una impostazione completa dei driver ed inoltre già offre l'accesso ai Cuda-Core, in questo caso io ho usato la versione 12.
+
+Seguendo le indicazioni di GPT, ho scaricato quello che sembra essere l'ultimo modello valido (secondo la comunnity), per fare ciò ho utilizzato conda e utilizzando pip ho scaricato kraken. 
+
+Tutto il lavoro è stato fatto utilizzando python. 
+
+\subsection{La gestione delle immagini}
+
+Inizialmente con l'uso di una stampante da ufficio professionale (600 dpi di definizione dello scanner) sono state scannerizzate circa 150 pagine di appunti di un corso universitario. (il quaderno è stato scelto poiché già si avevano le trascrizioni).\newline
+Utilizzando il software opensource ScanTailor (seguendo le impostazioni standard) sono state corrette tutte le scansioni, in particolare per quanto riguarda la centratura dell'immagine e il ritaglio delle parti inutili. L'intero processo ha mantenuto la qualità generare dell'immagine sempre a 600 DPI.\newline\newline
+
+Il processo è continuato dividendo ogni pagina in delle linee. Utilizzando le trascrizioni precedenti, si è associata ad ogni linea una trascrizione. Quindi l'insieme delle immagini e delle trascrizioni (associate dal nome) ha presentato il bacino di dati per il fine tuning. 
+
+\subsection{il processo di addestramento}
+
+\paragraph{Generazione ground_truth dai file.md per riga}
+
+Utilizzando questo script in Python, è stato generato il ground_truth (ovvero l'insieme di dati generati umanamente che quindi si identificano come verità assoluta), è a questo punto che si rende evidente che le trascrizioni erano in formato markdown, siccome in questo modo, le scritte sono più ordinate.\newline\newline
+
+\textbf{Questo è il comando che è stato lanciato}\newline\newline
+
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	python3 make_gt_from_line_md.py \
+	--images_dir "./00_images" \
+	--md_dir "./01_texts" \
+	--out "gt_new/ground_truth_new.txt"
+\end{minted}
+
+\textbf{Questo invece è lo script che viene invocato per le elaborazioni}\newline\newline
+
+\paragraph{ Normalizzazione GT e creazione di splits+charset per le righe}
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	python3 validate_and_normalize_gt.py \
+	--gt "gt_new/ground_truth_new.txt" \
+	--root "." \
+	--out "gt_new/ground_truth_new_normalized.txt"
+\end{minted}
+
+Questo è il relativo codice che viene eseguito \newline\newline
+
+Il passo successivo è la compattazione delle informazioni per creare il set per il training.\newline\newline
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	python3 split_and_charset.py \
+	gt_new/ground_truth_new_normalized.txt \
+	--out splits_new \
+	--val 0.05 \
+	--test 0.05 \
+	--group-by-page \
+	--page-sep "_"
+\end{minted}
+
+Come ultima ho verificato che il file prodotto fosse valido utilizzando questo comando\newline\newline
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	wc -l splits_new/*.txt
+	sed -n '1,5p' splits_new/train.txt
+\end{minted}
+
+\paragraph{Filtraggio delle immagini per facilitare la lettura di Ketos}
+
+Con questo comando, ho controllato che effettivamente tutte le immagini sono nel formato giusto per essere usate per l'addestramento
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	mkdir -p processed/lines
+	
+	for f in 00_images/*.png; do
+	base=$(basename "$f")
+	convert "$f" \
+	-deskew 40% \
+	-colorspace Gray \
+	-resize x64 \
+	-background white -gravity center -extent 0x64 \
+	"processed/lines/$base"
+	done
+\end{minted}
+
+Quindi adesso che ho a disposizione tutte le immagini nel formato giusto, posso aggiornare i punti di lettura delle immagini\newline\newline
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	sed 's|^00_images/|processed/lines/|' splits_new/train.txt > splits_new/train_proc.txt
+	sed 's|^00_images/|processed/lines/|' splits_new/val.txt   > splits_new/val_proc.txt
+	sed 's|^00_images/|processed/lines/|' splits_new/test.txt  > splits_new/test_proc.txt
+\end{minted}
+
+\paragraph{mappatura delle immagini}
+
+A questo punto in via preliminare all'addestramento, mappo la liste delle immagini e del testo da utilizzare per il training: 
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	awk -F'\t' '{print $1}' splits_new/train_proc.txt > splits_new/train_images.txt
+	awk -F'\t' '{print $1}' splits_new/val_proc.txt   > splits_new/val_images.txt
+	awk -F'\t' '{print $1}' splits_new/test_proc.txt  > splits_new/test_images.txt
+\end{minted}
+
+\textbf{Creazione degli sidecar compatibili con ketos, poichè a questo punto si evidenzia che le ultime implementazioni di kraken omettono i comandi e l'interfaccia per il training} \newline\newline
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+		python3 - <<'PY'
+		from pathlib import Path
+		
+		def write_sidecars(split_path: str):
+		p = Path(split_path)
+		created = 0
+		with p.open(encoding='utf-8') as f:
+		for i, line in enumerate(f, 1):
+		line = line.rstrip('\n')
+		if not line.strip():
+		continue
+		try:
+		img, txt = line.split('\t', 1)
+		except ValueError:
+		print(f"[WARN] line {i} without TAB in {split_path}: {line[:120]}...")
+		continue
+		img_path = Path(img)
+		if not img_path.exists():
+		print(f"[WARN] missing image at line {i}: {img_path}")
+		continue
+		sidecar = img_path.with_suffix('.gt.txt')  # es: foo.png -> foo.gt.txt
+		text = txt.strip('\r\n')
+		sidecar.write_text(text + '\n', encoding='utf-8')
+		created += 1
+		return created
+		
+		total = 0
+		for sp in ['splits_new/train_proc.txt', 'splits_new/val_proc.txt', 'splits_new/test_proc.txt']:
+		if Path(sp).exists():
+		c = write_sidecars(sp)
+		print(f"[OK] {sp}: created {c} sidecar files")
+		total += c
+		print("Total new sidecars created:", total)
+		PY
+\end{minted}
+
+\textbf{verifica che tutto sia apposto}
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	python3 - <<'PY'
+	from pathlib import Path
+	missing = []
+	for lst in ['splits_new/train_images.txt','splits_new/val_images.txt','splits_new/test_images.txt']:
+	p = Path(lst)
+	if not p.exists():
+	continue
+	for l in p.read_text(encoding='utf-8').splitlines():
+	img = Path(l.strip())
+	if not img.exists():
+	continue
+	gt = img.with_suffix('.gt.txt')
+	if not gt.exists():
+	missing.append(str(img))
+	print("Total images without sidecar:", len(missing))
+	if missing[:10]:
+	print("First missing:", missing[:10])
+	PY
+\end{minted}
+
+\paragraph{Training}
+
+Ecco il comando con il quale è stato generato il modello: 
+
+
+\begin{minted}[frame=single, linenos, fontsize=\small]{bash}
+	ketos train \
+	-f path \
+	-i "models/Tridis_Medieval_EarlyModern.mlmodel" \
+	--resize union \
+	-q early \
+	-N 40 \
+	--min-epochs 5 \
+	--lag 10 \
+	-B 4 \
+	-r 5e-5 \
+	-o models/italian_finetuned.mlmodel_best.mlmodel \
+	-t splits_new/train_images.txt \
+	-e splits_new/val_images.txt
+\end{minted}
+
+
+%Qui vanno descritti i metodi utilizzati, ovvero modelli e algoritmi di apprendimento. Per ogni modello/algoritmo descrivete brevemente come funziona, utilizzando anche una notazione matematica coerente (ad esempio inserendo e descrivendo la funzione di costo di tipo cross-entropy di un classificatore regressione logistica, se questo viene usato). Cercate di evidenziare quello che avete assimilato e compreso di un certo metodo.
+
+%Devono essere descritti il/i dataset utilizzato/i, in termini di dimensione e composizione. Quanti esempi sono stati utilizzati per il training? Quanti per l'eventuale validazione? Quanti per il test? 
+%Si devono anche riportare eventuali pre-elaborazioni, come ad esempio la normalizzazione dei dati, oppure l'estrazione di feature particolari. \`E solitamente utile fornire una descrizione del singolo dato, magari tramite l'ausilio di una figura, come ad esempio il segnale riportato in Figura \ref{fig:signals}. 
 
 \begin{figure}
 \includegraphics[width=\columnwidth]{signals.pdf}
@@ -115,22 +315,32 @@ Si devono anche riportare eventuali pre-elaborazioni, come ad esempio la normali
 \end{figure}
 
 \section{Risultati sperimentali}
-In questa sezione devono essere riportati i risultati degli esperimenti condotti. Come prima cosa vanno definite e spiegate le metriche di valutazione adottate: accuratezza (per i problemi di classificazione), errore quadratico medio o errore assoluto medio (per i problemi di regressione), ecc.
-Se avete affrontato un problema di classificazione pu\`o essere utile introdurre e riportare le matrici di confusione.
 
-Altre metriche che non sono state introdotte nel corso (come ad esempio le curve ROC, Receiver Operating Curve) possono ovviamente essere prese in considerazione, purch\`e debitamente studiate e comprese.
+Le metriche di valutazione regina per questo genere di addestramento è la quantità di parole correttamente riconosciute e scritte, per ogni pagina si definisce una percentuale di accuratezza e la somma di questi dati forma il grafico completo. \newline
+Non si è fatta distinzione della complessità del testo da riconoscere, siccome uno strumento che deve essere affidabile, lo deve essere sempre, in questo termini vi è una analisi senza pietà. Attualmente come si vede poi dai grafici successivi kraken sbaglia una parola ogni tre mediamente, date le prove fotografiche, si deduce che lo sbaglio è legittimo, in quanto ad esempio la parola "casa" può essere letta come "caso" facendo intuire che generalmente le parola vengono abbastanza riconosciute e che ci sia confusione su alcune lettere, questo non sarebbe un grosso problema se si dovesse pensare di filtrare le trascrizioni per contesto, riconoscendo quindi le parole che non c'entrano con il contesto e fare la sostituzione con la parola più probabile. Ma data il continuo proliferare di "Utonti" lo strumento deve semplicemente raggiungere un certo livello di affidabilità, tale da offrire la possibilità di catalogare gli errori come irrilevanti. 
 
-I risultati sono solitamente riassunti in forma di tabelle o grafici (o entrambi) che devono essere opportunamente discussi. Ricordarsi di riportare nei grafici legende e etichette degli assi. 
-Nel commentare i risultati \`e infine suggerito provare a evidenziare (tramite esempi di dove ha fallito) le limitazioni dell'algoritmo utilizzato o, viceversa, i punti di forza rispetto a potenziali alternative. 
+
+%In questa sezione devono essere riportati i risultati degli esperimenti condotti. Come prima cosa vanno definite e spiegate le metriche di valutazione adottate: accuratezza (per i problemi di classificazione), errore quadratico medio o errore assoluto medio (per i problemi di regressione), ecc.
+%Se avete affrontato un problema di classificazione pu\`o essere utile introdurre e riportare le matrici di confusione.
+
+%Altre metriche che non sono state introdotte nel corso (come ad esempio le curve ROC, Receiver Operating Curve) possono ovviamente essere prese in considerazione, purch\`e debitamente studiate e comprese.
+
+%I risultati sono solitamente riassunti in forma di tabelle o grafici (o entrambi) che devono essere opportunamente discussi. Ricordarsi di riportare nei grafici legende e etichette degli assi. 
+%Nel commentare i risultati \`e infine suggerito provare a evidenziare (tramite esempi di dove ha fallito) le limitazioni dell'algoritmo utilizzato o, viceversa, i punti di forza rispetto a potenziali alternative. 
 
 
 \section{Conclusioni}
-Riassumete in questa sezione i punti chiave del progetto, illustrando quali algoritmi hanno fornito le prestazioni migliori e, possibilmente, per quale motivo. 
-Infine, provate a concludere analizzando il lavoro in una prospettiva futura, provando cio\`e a proporre cosa fareste per espandere il lavoro oppure per proporne una sua evoluzione, qualora aveste a disposizione ulteriori risorse (pi\`u co-autori del progetto, maggiori risorse computazionali, pi\`u tempo).
+In conclusione, come si può vedere dalla sezione precedente, questo lavoro raggiunge il criterio minimo di accettazione per il processo, in quanto l'OCR in questo stato non garantisce una certa affidabilità per la quale lo si può usare ciecamente nella digitalizzazione dei documenti della PC, in quanto ancora qualche scritta non la riconosce propriamente, generalmente, però rimane utile per fare il lavoro più grande.\newline\newline 
 
-\section{Contributi}
-Nella sezione Contributi vanno inseriti i contributi dei vari componenti del gruppo di lavoro, ovvero chi ha ideato, sviluppato, implementato le specifiche parti del progetto. Ovviamente i contributi possono essere anche paritari, se ogni membro del gruppo ha contribuito in egual misura.
+Questa situazione però non è del tutto brutta, siccome i risultati ottenuti dimostrano che è ragionevole sviluppare uno strumento specifico per gli obiettivi previsti dalla legge. A livello di comparto questo apre la strada per richiedere i fondi per dedicarsi a questa attività in non concorrenza con altre attività più importanti a livello ospedaliero.\newline\newline
 
-\printbibliography
+\subsection{Per il futuro}
+
+Con la Speranza di non trovarsi a dover gestire lavori complessi a favore di una qualche legge per la quale il raggiungimento dell'obiettivo è impostato per il tempo prossimo, L'idea è quella di parlare con il DPO aziendale per avere accesso ad un campione sufficientemente grande di documenti, facendo una breve riflessione, se il totale di circa 150 pagine di quaderno hanno portato a questi risultati, presuppongo che ne servano almeno mille di pagine per avere un risultato che possa risultare in una qualche affidabilità. Allo stato attuale il progetto da me presentato è stato ritenuto dal Dirigente Generale qualcosa d'interessa nazionale, di conseguenza, si fa largo anche l'ipotesi che con i fondi ricevuti, si possa variare la pianta organica del comparto per l'acquisizione di una persona a tempo determinato, che abbia il solo scopo di preparare il campione di addestramento. Date le generali difficoltà a mettere ordine tra tutte le informazioni dispersive della documentazione di kraken, si prevede comunque di fare solo un fine tuning (non sembra che sia la mossa migliore pensare di creare un modello da 0)
+
+%\section{Contributi}
+%Nella sezione Contributi vanno inseriti i contributi dei vari componenti del gruppo di lavoro, ovvero chi ha ideato, sviluppato, implementato le specifiche parti del progetto. Ovviamente i contributi possono essere anche paritari, se ogni membro del gruppo ha contribuito in egual misura.
+
+%\printbibliography
 
 \end{document}
