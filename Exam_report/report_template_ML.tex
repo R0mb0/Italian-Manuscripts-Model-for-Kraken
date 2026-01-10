@@ -21,12 +21,12 @@
 \usepackage{biblatex} %Imports biblatex package
 \addbibresource{riferimenti.bib} %Import the bibliography file
 
-\title{\color{FireBrick}\bf{Titolo progetto}}
-\author[1]{\color{FireBrick}\bf{Studente autore 1}}
-\author[2]{\color{FireBrick}\bf{Studente autore 2}}
+\title{\color{FireBrick}\bf{Modello italiano per Kraken}}
+\author[1]{\color{FireBrick}\bf{Francesco Rombaldoni}}
+%\author[2]{\color{FireBrick}\bf{Studente autore 2}}
 
-\affil[1]{nome1.cognome1@campus.uniurb.it}
-\affil[2]{nome2.cognome2@campus.uniurb.it}
+\affil[1]{f.rombaldoni@campus.uniurb.it}
+%\affil[2]{nome2.cognome2@campus.uniurb.it}
 
 \date{}
 
@@ -66,7 +66,9 @@
                     arc=1mm, auto outer arc,
                 ]
 \section*{Riassunto}
-In questa sezione va riportata una sintesi del lavoro svolto, descrivendo brevemente motivazione, metodologie adottate (ad alto livello, senza scendere nei dettagli) e risultati ottenuti.
+%In questa sezione va riportata una sintesi del lavoro svolto, descrivendo brevemente motivazione, metodologie adottate (ad alto livello, senza scendere nei dettagli) e risultati ottenuti.
+
+Il lavoro svolto per l'esame è stato il "fine tuning" di un modello pre-esistente di Kraken per ottenerne uno che fosse in grado di leggere i manoscritti italiani, poiché nel luogo dove lavoro io (ovvero la pubblica amministrazione) vi è una forte necessità di strumenti "OCR" avanzati per la digitalizzazione dei documento storici che tra non molto secondo le nuove normative sulla privacy, dovranno essere distrutti. Per raggiungere tale scopo sono stati trascritti (pagina per pagina) e scansionati dei quaderni universitari e nel campione di addestramento sono anche state incluse delle pagine stampate da una sorgente di testo in digitale. Le pagine scansionate sono state poi raffinate con degli script standard in Python che si usano per l'addestramento di Kraken. IL risultato di questa operazione è stato l'ottenimento di un modello che soddisfa i requisiti minimi di operatività richiesti dal mio capo. 
 \end{tcolorbox}
 \vspace{1.5ex}
 }]
@@ -77,7 +79,23 @@ In questa sezione va riportata una sintesi del lavoro svolto, descrivendo brevem
 %------------------------------------------
 
 \section{Introduzione}
-In questa sezione dovete introdurre il problema e spiegare perch\'e \`e importante; inoltre vanno chiaramente specificati input e output e introdotto l'utilizzo del modello utilizzato per la predizione. 
+%In questa sezione dovete introdurre il problema e spiegare perch\'e \`e importante; inoltre vanno chiaramente specificati input e output e introdotto l'utilizzo del modello utilizzato per la predizione. 
+
+\subsection{Il problema}
+Il problema prevede l'addempimento alle regole del "GDPR" in particolare gli articoli: Art. 15, Art. 169, c.1 e Art. 160/162, c. 1/162, 2 e 3/164, c. 4. (per quanto riguarda la catagolazione dei documenti sensibili e della loro archiviazione invitando a distruggerne la versione cartacea qualora presente) e anche la ISO/IEC 21964 che definisce la transizione dal cartaceo al digitale.\newline
+L'ente per il quale lavoro io (ovvero l'I.N.R.C.A.) che è un istituto sia ospedaliero che di ricerca nazionale ha l'obbligo di adempiere questi obblighi di legge, pertanto si è resa necessaria la ricerca di strumenti "OCR" idonei alla digitalizzazione dei documenti cartacei.\newline
+I primi software analizzati e successivamente scartati poiché inadatti sono stati: 
+
+\begin{itemize}
+	\item Wondershare PDFelement
+	\item ABBYY FineReader PDF 16
+	\item Nanonets 
+	\item Adobe Acrobat
+\end{itemize}
+
+La motivazione per quale questo software sono stati giudicati come inadatti è che nessuno di questi ha un vero supporto per documenti che possiedono delle parti manoscritte, che nel caso di un istituti di ricerca possono essere le ricette fatte e le note sui pazienti.\newline
+In linea teorica gli "OCR" su base "AI" sono gli unici ad essere idonei per il carico di lavoro descritto, ma un istituto di ricerca ancor prima della sperimentazione non può procedere con questo strumenti, poiché tutti richiedono la trasmissione remota delle pagine da analizzare e a questo punto non è più garantita 
+
 Qui \`e anche il caso di inserire una parte dedicata al background e ai lavori correlati al progetto tramite citazioni ad opportuni riferimenti bibliografici di libri, articoli scientifici e/o (eventualmente, in seconda battuta, anche siti web autorevoli) \cite{dirac}, \cite{einstein}, \cite{uniurbwebsite}.
 L'utilizzo di un motore di ricerca accademica come Google Scholar (https://scholar.google.com) \`e particolarmente utile per questo scopo (vi permette anche di estrarre le citazioni in formato BibTeX).
 Raggruppare lo stato dell'arte secondo macro-categorie permette di evidenziare quali soluzioni (algoritmi di apprendimento, modelli, librerie software) sono state proposte per un dato problema.   
