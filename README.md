@@ -11,6 +11,17 @@ Urbino`s University - Computing and digital innovation - Machine Learning
 
 This is my attempt to train a Kraken model for Italian manuscripts. I started from the `Tridis_Medieval_EarlyModern` model and fine‑tuned it using a book of university lecture notes (I used standard Python scripts to manage the scans).
 
+<div align="center">
+  <a href="http://paypal.me/R0mb0">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/R0mb0/Support_the_dev_badge/blob/main/Badge/SVG/Support_the_dev_badge_Dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://github.com/R0mb0/Support_the_dev_badge/blob/main/Badge/SVG/Support_the_dev_badge_Light.svg">
+      <img alt="Saved you time? Support the dev" src="https://github.com/R0mb0/Support_the_dev_badge/blob/main/Badge/SVG/Support_the_dev_badge_Default.svg">
+    </picture>
+  </a>
+</div>
+
+
 <details>
 <summary>
 
