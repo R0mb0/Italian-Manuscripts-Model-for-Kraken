@@ -15,7 +15,7 @@ jobs:
           working_directory: Exam_report/Report
           root_file: Report.tex
       - name: Upload compiled file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with: 
           name: Italian_Manuscripts_Model_for_Kraken
           path: Exam_report/Report/Report.pdf
